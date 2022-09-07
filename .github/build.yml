@@ -1,0 +1,38 @@
+name: Build
+
+on:
+  push:
+    branches: main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
+
+      - name: Navigate to Workspace
+        run: cd $GITHUB_WORKSPACE
+
+      - name: Build Solution
+        run: .\build.bat
+
+      - name: Zip
+        shell: bash
+        run: |
+          tag=$(git describe --tags --abbrev=0)
+          release_name="winapiexec-$tag"
+
+          # Pack files
+          7z a -tzip "${release_name}-x86.zip" "./Release/winapiexec.exe"
+          7z a -tzip "${release_name}-x64.zip" "./x64/Release/winapiexec.exe"
+
+      - name: Publish
+        uses: softprops/action-gh-release@v1
+        with:
+          files: "*.zip"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
