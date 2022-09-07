@@ -24,7 +24,7 @@ jobs:
       - name: Zip
         shell: bash
         run: |
-          tag="$(git describe --tags --abbrev=0)""
+          tag="$(git describe --tags --abbrev=0)"
           release_name="winapiexec-${tag}"
 
           # Pack files
