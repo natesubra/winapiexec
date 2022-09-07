@@ -23,8 +23,8 @@ jobs:
       - name: Zip
         shell: bash
         run: |
-          tag=$(git describe --tags --abbrev=0)
-          release_name="winapiexec-$tag"
+          tag="$(git describe --tags --abbrev=0)""
+          release_name="winapiexec-${tag}"
 
           # Pack files
           7z a -tzip "${release_name}-x86.zip" "./Release/winapiexec.exe"
