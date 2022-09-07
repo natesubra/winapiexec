@@ -29,11 +29,10 @@ jobs:
         run: |
           git fetch -a
           tag="$(git describe --tags --abbrev=0)"
-          echo ::set-output name=LATEST_TAG::${tag}
+          echo "::set-output name=LATEST_TAG::${tag}"
 
           release_name="winapiexec-${tag}"
 
-          # Pack files
           7z a -tzip "${release_name}-x86.zip" "./Release/winapiexec.exe"
           7z a -tzip "${release_name}-x64.zip" "./x64/Release/winapiexec.exe"
 

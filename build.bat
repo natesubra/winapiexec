@@ -1,3 +1,4 @@
-msbuild.exe .\winapiexec.sln -target:Clean
-msbuild.exe .\winapiexec.sln /property:Configuration=Release /property:Platform=Win32
-msbuild.exe .\winapiexec.sln /property:Configuration=Release /property:Platform=x64
+rd /s /q .\Debug\ .\Release\ .\x64\
+msbuild.exe -nologo -target:Clean
+msbuild.exe -nologo -target:Clean /property:Configuration=Release /property:Platform=Win32
+msbuild.exe -nologo -target:Clean /property:Configuration=Release /property:Platform=x64
